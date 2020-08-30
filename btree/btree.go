@@ -2,7 +2,7 @@
  * @Description: a base btree
  * @Date: 2020-08-29 14:01:45
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2020-08-30 01:19:19
+ * @LastEditTime: 2020-08-30 12:07:39
  */
 
 package btree
@@ -17,37 +17,37 @@ func NewNode(data interface{}) *Node {
 	return &Node{Data: data}
 }
 
-func PreOrder(node *Node) (res []interface{}) {
+func (node *Node) PreOrder() (res []interface{}) {
 	if node == nil {
 		return
 	}
 	res = append(res, node.Data)
-	res = append(res, PreOrder(node.Left)...)
-	res = append(res, PreOrder(node.Right)...)
+	res = append(res, node.Left.PreOrder()...)
+	res = append(res, node.Right.PreOrder()...)
 	return
 }
 
-func MidOrder(node *Node) (res []interface{}) {
+func (node *Node) MidOrder() (res []interface{}) {
 	if node == nil {
 		return
 	}
-	res = append(res, MidOrder(node.Left)...)
+	res = append(res, node.Left.MidOrder()...)
 	res = append(res, node.Data)
-	res = append(res, MidOrder(node.Right)...)
+	res = append(res, node.Right.MidOrder()...)
 	return
 }
 
-func LastOrder(node *Node) (res []interface{}) {
+func (node *Node) LastOrder() (res []interface{}) {
 	if node == nil {
 		return
 	}
-	res = append(res, LastOrder(node.Left)...)
-	res = append(res, LastOrder(node.Right)...)
+	res = append(res, node.Left.LastOrder()...)
+	res = append(res, node.Right.LastOrder()...)
 	res = append(res, node.Data)
 	return
 }
 
-func LayerOrder(node *Node) (res []interface{}) {
+func (node *Node) LayerOrder() (res []interface{}) {
 	if node == nil {
 		return
 	}
